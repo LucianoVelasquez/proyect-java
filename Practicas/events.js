@@ -2,26 +2,26 @@ const x = document.querySelector(".but");
 const img = document.querySelector(".img-prueba");
 
 //Eventos click
-/*
+
 x.addEventListener("click",(e)=>{//Evento click.
     alert("hola perro");
     e.stopPropagation(); //para que no se ejecute otro evento (si es que sus padres tiene eventos.)
-})*/
+})
 
 
-/*x.addEventListener("dblclick",(e)=>{ //Evento double click
+x.addEventListener("dblclick",(e)=>{ //Evento double click
     alert("hola perro");
     e.stopPropagation(); //para que no se ejecute otro evento (si es que sus padres tiene eventos.)
-})*/
+})
 
 
-/*y.addEventListener("mouseover",(e)=>{ //Evento mouseover
+y.addEventListener("mouseover",(e)=>{ //Evento mouseover
     alert("hola perro");
     e.stopPropagation(); //para que no se ejecute otro evento (si es que sus padres tiene eventos.)
-})*/
+})
 
 //Evento interzas
-/*img.addEventListener("error",()=>{
+img.addEventListener("error",()=>{
     console.log("ha sucedido un errir"); //sino carga la imagen salta ese mensj 
 })
 
@@ -30,7 +30,7 @@ addEventListener("load",()=>{
 }) */
 
 //Callbacks
-/*function saludar(nombre) {
+function saludar(nombre) {
     alert('Hola ' + nombre);
 }
   
@@ -44,21 +44,22 @@ procesarEntradaUsuario(saludar)
 
 //Promesas
 class persona{   //Defino clase personas
-    constructor(nombre,instagram){
+    constructor(nombre,instagram,numero){
         this.nombre = nombre;
         this.instagram = instagram;
+        this.numero = numero;
     }
 };
 
 const datos = [            //Datos para rellenar
-    ["Luciano","@Vel"],
-    ["Maria lujan","@lujanM"],
-    ["Jonatan","@JJonatan"],
+    ["Luciano","@Vel","3444511"],
+    ["Maria lujan","@lujanM","4534534"],
+    ["Jonatan","@JJonatan","1233"],
 ];
 
 const personas = [];  //Array de objetos persona
 for(let i = 0; i < datos.length;i++){
-    personas[i] = new persona(datos[i][0],datos[i][1]);  //cargamos los datos.
+    personas[i] = new persona(datos[i][0],datos[i][1],datos[i][2]);  //cargamos los datos.
 }
 
 
@@ -68,9 +69,48 @@ function ObtenerPersona(id){          //Funcion con un parametro.
         else {resolve(personas[id])}  //De lo contrario retorna un resultado positivo.
     })
 }
-ObtenerPersona(5).then((sujeto)=>{ //LLamamos a la funcion principal y luego con then obtenemos el resultado de la funcion principal.
+function obtenerInstagram(id){
+    return new Promise((resolve,reject)=>{
+        if(personas[id].instagram == undefined) reject("Este usuario no tiene instagram");
+        else {resolve(personas[id].instagram)}
+    })
+};
+function obtenerNumero(id){
+    return new Promise((resolve,reject)=>{
+        if(personas[id].numero == undefined) reject("Este usuario no tiene numero");
+        else {resolve(personas[id].numero)}
+    })
+};
+
+ObtenerPersona(2).then((sujeto)=>{ //LLamamos a la funcion principal y luego con then obtenemos el resultado de la funcion principal.
     console.log(sujeto.nombre); //Si es positivo (resolve) ejecuta esta parte del codigo.
-}).catch((error)=>{             //De otra forma si encuentra un error lo retorna.
+    return obtenerInstagram(2);
+    
+}).then((instagram)=>{
+    console.log(instagram);
+    return obtenerNumero(2);
+}).then((numero)=>{
+    console.log(numero);
+}).catch((error)=>{
     console.log(error);
-})
-*/
+});
+
+
+//Await y Async
+
+function obtenerInfo(text){
+    return new Promise((resolve,reject)=>{
+        setTimeout(()=> {resolve(text)},Math.random()*200)
+    })
+}
+
+async function mostrarData(){
+    data1 = await obtenerInfo("Juan carlos");
+    data2 = await obtenerInfo("maria del carmen");
+    data3 = await obtenerInfo("Pedrito");
+
+    console.log(data1);
+    console.log(data2);
+    console.log(data3);
+}
+mostrarData()
