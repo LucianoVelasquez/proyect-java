@@ -1,4 +1,4 @@
-const materiaHTML = document.querySelector(".materias");
+/*const materiaHTML = document.querySelector(".materias");
 const materias = [
     {
         nombre: "Fisica",
@@ -44,4 +44,6 @@ async function mostrarData(){
     }
 }
 
-mostrarData();
+mostrarData();*/
+let objeto = {};
+console.log(objeto.__proto__);
