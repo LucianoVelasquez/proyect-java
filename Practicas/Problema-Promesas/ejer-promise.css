@@ -1,0 +1,8 @@
+.contenedor{
+    width: 1000px;
+    margin: auto;
+    border: solid 2px rgb(38, 37, 37);
+}
+h1{
+    text-align: center;
+}
